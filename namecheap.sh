@@ -52,6 +52,8 @@ function update() {
     password="password=${NAMECHEAP_DDNS_PASS?}"
     ip="ip=$3"
 
+    echo "Preparing to update $host + $domain to $ip" >&2
+
     if ! OUT="$(curl -s "${BASE}?$host&$domain&$password&$ip")" ||
         grep -qv "<ErrCount>0</ErrCount>" <<< "$OUT"; then
         fatal "failed to update; response: $OUT"
